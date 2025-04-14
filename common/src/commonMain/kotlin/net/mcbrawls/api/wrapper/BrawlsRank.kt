@@ -1,15 +1,29 @@
 package net.mcbrawls.api.wrapper
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /** Ranks on the Brawls server. */
 @Serializable
 public enum class BrawlsRank {
-  ADMIN,
-  BUILDER,
-  MODERATOR,
-  MCCIT,
-  PARTNER,
-  STAFF,
-  DEFAULT,
+  @SerialName("ADMIN")
+  Admin,
+
+  @SerialName("BUILDER")
+  Builder,
+
+  @SerialName("MODERATOR")
+  Moderator,
+
+  @SerialName("MCCIT")
+  McciTournaments,
+
+  @SerialName("PARTNER")
+  Partner,
+
+  @SerialName("STAFF")
+  Staff,
+
+  @SerialName("DEFAULT")
+  Player;
 }

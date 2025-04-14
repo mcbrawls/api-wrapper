@@ -10,6 +10,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import net.mcbrawls.api.wrapper.ChatStatistics
 import net.mcbrawls.api.wrapper.Leaderboard
+import net.mcbrawls.api.wrapper.PlayerProfile
 import java.time.Duration
 
 val routeResponseCache: Cache<String, Any> = Caffeine
@@ -60,7 +61,7 @@ private inline fun <reified T : Any> Routing.brawlsApi(route: String, targetRout
 fun Application.configureRouting() = routing {
   brawlsApi<ChatStatistics>("chat_statistics", "chat_statistics")
   brawlsApi<ChatStatistics>("chat_statistics/{uuid}", "chat_statistics/{uuid}", "uuid")
-
+  brawlsApi<PlayerProfile>("profile/{uuid}", "profile/{uuid}", "uuid")
   brawlsApi<Leaderboard>("leaderboard/{event}/{game?}/{limit?}/{offset?}/{type?}", "stats/{event}/{game?}/{limit?}/{offset?}/{type?}", "event", "game?", "limit?", "offset?", "type?")
 
   configurePlayTimeStats()

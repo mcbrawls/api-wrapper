@@ -84,4 +84,9 @@ public open class BrawlsAPI(
   public suspend fun playTimeStats(player: Uuid): PlayTimeStats {
     return fetch("playtime/$player")
   }
+
+  /** Fetches the profile for the given [player]. */
+  public suspend fun profile(player: Uuid): PlayerProfile {
+    return fetch("profile/$player")
+  }
 }

@@ -22,6 +22,7 @@ kotlin {
       browser()
       nodejs()
     }
+    wasmJs()
     iosArm64()
     iosX64()
     iosSimulatorArm64()

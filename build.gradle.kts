@@ -2,6 +2,7 @@ plugins {
   alias(libs.plugins.ktlint)
   alias(libs.plugins.kotlin) apply false
   alias(libs.plugins.kotlinx.serialization) apply false
+  `maven-publish`
 }
 
 subprojects {
@@ -13,6 +14,7 @@ subprojects {
     maven("https://maven.radsteve.net/public")
   }
 
+  apply(plugin = "maven-publish")
   apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
   ktlint {
@@ -24,9 +26,21 @@ subprojects {
       ktlintRuleset(libs.ktlint.extras)
     }
   }
+
+  publishing {
+    repositories {
+      maven {
+        url = uri("https://maven.radsteve.net/public")
+        credentials {
+          username = System.getenv("RAD_MAVEN_USER")
+          password = System.getenv("RAD_MAVEN_TOKEN")
+        }
+      }
+    }
+  }
 }
 
-fun delegatingTask(name: String, vararg delegateTasks: String) {
+fun delegatingTask(name: String, vararg delegateTasks: String = arrayOf(name)) {
   tasks.register(name) {
     childProjects.forEach { (_, project) ->
       runCatching {
@@ -37,3 +51,4 @@ fun delegatingTask(name: String, vararg delegateTasks: String) {
 }
 
 delegatingTask("lint", "ktlintFormat")
+delegatingTask("publishAll", "publishAllPublicationsToMavenRepository")
